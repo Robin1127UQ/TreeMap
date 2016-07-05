@@ -179,15 +179,31 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 		public Value removeNode(Key k) {
 			if (k.compareTo(this.k) == 0) {
 				if (left == null && right == null) {
-					parent.removeMe(this);
+					if (parent == null) {
+						removeRoot();
+					} else {
+						parent.removeMe(this);
+					}
 				} else if (left != null && right == null) {
-					parent.removeMe(this, left);
+					if (parent == null) {
+						removeRoot(left);
+					} else {
+						parent.removeMe(this, left);
+					}
 				} else if (left == null && right != null) {
-					parent.removeMe(this, right);
+					if (parent == null) {
+						removeRoot(right);
+					} else {
+						parent.removeMe(this, right);
+					}
 				} else {
 					Node<Key, Value> replacement = right.findNextNode();
 					replacement.setLeft(left);
-					parent.removeMe(this, replacement);
+					if (parent == null) {
+						removeRoot(replacement);
+					} else {
+						parent.removeMe(this, replacement);
+					}
 				}
 
 				return v;
@@ -212,6 +228,10 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 			}
 		}
 
+		private void removeRoot() {
+			root = null;
+		}
+
 		private void removeMe(Node<Key, Value> node, Node<Key, Value> replacement) {
 			if (node == left) {
 				left = replacement;
@@ -220,13 +240,17 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
+		private void removeRoot(Node<Key, Value> replacement) {
+			root = (TreeMap<K, V>.Node<K, V>) replacement;
+		}
+
 		private Node<Key, Value> findNextNode() {
 			if (left == null) {
-				return null;
+				return this;
 			}
 
-			Node<Key, Value> nextFound = left.findNextNode();
-			return nextFound == null ? left : nextFound;
+			return left.findNextNode();
 		}
 
 		public void setLeft(Node<Key, Value> left) {
