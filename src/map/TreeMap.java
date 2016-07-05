@@ -189,14 +189,14 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 					replacement.setLeft(left);
 					parent.removeMe(this, replacement);
 				}
-				
+
 				return v;
 			}
-			
+
 			if (left != null && k.compareTo(this.k) < 0) {
 				return left.removeNode(k);
 			}
-			
+
 			if (right != null) {
 				return right.removeNode(k);
 			}
@@ -211,7 +211,7 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 				right = null;
 			}
 		}
-		
+
 		private void removeMe(Node<Key, Value> node, Node<Key, Value> replacement) {
 			if (node == left) {
 				left = replacement;
@@ -219,22 +219,22 @@ public class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 				right = replacement;
 			}
 		}
-		
+
 		private Node<Key, Value> findNextNode() {
 			if (left == null) {
 				return null;
 			}
-			
+
 			Node<Key, Value> nextFound = left.findNextNode();
 			return nextFound == null ? left : nextFound;
 		}
-		
+
 		public void setLeft(Node<Key, Value> left) {
 			this.left = left;
 		}
 
 		public String toString() {
-			return v + (left != null ? " (" + left.toString() + ")" : " ()")
+			return k + "->" + v + (left != null ? " (" + left.toString() + ")" : " ()")
 					+ (right != null ? " (" + right.toString() + ")" : " ()");
 		}
 	}
