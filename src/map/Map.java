@@ -3,7 +3,7 @@ package map;
 /**
  * @author ploskov
  */
-public interface Map<K, V> {
+public interface Map<K extends Comparable<K>, V> {
 	/**
 	 * Returns true if this map contains a mapping for the specified key
 	 *
@@ -56,21 +56,29 @@ public interface Map<K, V> {
 	V put(K key, V value);
 
 	/**
+	 * Removes the mapping for a key from this map if it is present (optional
+	 * operation).
 	 * 
 	 * @param key
-	 * @return
+	 *            - key whose mapping is to be removed from the map
+	 * @return the previous value associated with key, or null if there was no
+	 *         mapping for key
 	 */
 	V remove(K key);
 
 	/**
+	 * Returns the number of key-value mappings in this map. If the map contains
+	 * more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.
 	 * 
-	 * @return
+	 * @return the number of key-value mappings in this map
 	 */
 	int size();
 
 	/**
+	 * Prints the map in preorder traversal.
 	 * 
-	 * @return
+	 * @return the string of the map structure looks like "root (left...)
+	 *         (right...)", if the map is empty, returns empty string
 	 */
 	String toString();
 }
