@@ -1,6 +1,9 @@
 package map;
 
 /**
+ * This interface provides a skeletal declaration of the Map structure, which
+ * contains a key-value assignment.
+ * 
  * @author ploskov
  */
 public interface Map<K extends Comparable<K>, V> {
