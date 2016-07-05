@@ -13,13 +13,24 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		br = new BufferedReader(new InputStreamReader(System.in));
-		st = new StringTokenizer(br.readLine());
 		map = new TreeMap<>();
 		run();
 		br.close();
 	}
 
 	private static void run() throws IOException {
+		System.out.println("Avaliable commands: "
+				+ "\n\tContainsKey"
+				+ "\n\tContainsValue"
+				+ "\n\tGet"
+				+ "\n\tIsEmpty"
+				+ "\n\tPut"
+				+ "\n\tRemove"
+				+ "\n\tSize"
+				+ "\n\tToString"
+				+ "\n\tQuit\n");
+		
+		st = new StringTokenizer(br.readLine());
 		for (String command = nextToken(); command.compareTo("Quit") != 0; command = nextToken()) {
 			switch (command) {
 			case "ContainsKey":
